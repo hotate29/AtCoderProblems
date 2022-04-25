@@ -3,13 +3,17 @@
 # Please see the documentation for all configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
-version: 2
-updates:
-  - package-ecosystem: "cargo" # See documentation for possible values
-    directory: "atcoder-problems-backend/" # Location of package manifests
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "npm"
-    directory: "atcoder-problems-frontend/"
-    schedule:
-      interval: "daily"
+# Fork先にもPRが飛んでくるので、独自に無効にしている
+# https://github.com/dependabot/dependabot-core/issues/2804
+
+
+# version: 2
+# updates:
+#   - package-ecosystem: "cargo" # See documentation for possible values
+#     directory: "atcoder-problems-backend/" # Location of package manifests
+#     schedule:
+#       interval: "daily"
+#   - package-ecosystem: "npm"
+#     directory: "atcoder-problems-frontend/"
+#     schedule:
+#       interval: "daily"
