@@ -10,7 +10,8 @@ use std::env;
 async fn main() -> Result<()> {
     init_log_config()?;
     info!("Started");
-    let url = env::var("SQL_URL").expect("SQL_URL should be set as environmental variable.");
+    let url =
+        env::var("DATABASE_URL").expect("DATABASE_URL should be set as environmental variable.");
     let contest_id = env::args()
         .nth(1)
         .expect("contest_id is not set.\nUsage: cargo run --bin crawl_whole_contest <contest_id>");

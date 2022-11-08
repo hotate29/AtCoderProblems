@@ -32,7 +32,7 @@ async fn crawl<R: Rng>(url: &str, rng: &mut R) -> Result<()> {
 #[actix_web::main]
 async fn main() {
     init_log_config().unwrap();
-    let url = env::var("SQL_URL").expect("SQL_URL must be set.");
+    let url = env::var("DATABASE_URL").expect("DATABASE_URL must be set.");
     log::info!("Started");
 
     let mut rng = thread_rng();

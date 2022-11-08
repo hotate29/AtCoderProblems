@@ -12,7 +12,7 @@ const ONE_DAY: i64 = 24 * 3600;
 async fn main() {
     init_log_config().unwrap();
     info!("Started");
-    let url = env::var("SQL_URL").expect("SQL_URL must be set.");
+    let url = env::var("DATABASE_URL").expect("DATABASE_URL must be set.");
     let db = initialize_pool(&url).await.unwrap();
     let now = Utc::now().timestamp();
     let crawler = FixCrawler::new(db, AtCoderClient::default(), now - ONE_DAY);

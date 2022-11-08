@@ -16,7 +16,6 @@ services:
   backend-development:
     image: rust:1.63.0
     environment:
-      SQL_URL: postgres://db_user:db_pass@postgresql:5432/test_db
       DATABASE_URL: postgres://db_user:db_pass@postgresql:5432/test_db
       RUST_LOG: info
     ports:
