@@ -1,15 +1,19 @@
-use sql_client::internal::virtual_contest_manager::{
-    VirtualContestInfo, VirtualContestItem, VirtualContestManager, MAX_PROBLEM_NUM_PER_CONTEST,
+use sql_client::{
+    internal::virtual_contest_manager::{
+        VirtualContestInfo, VirtualContestItem, VirtualContestManager, MAX_PROBLEM_NUM_PER_CONTEST,
+    },
+    PgPool,
 };
 
 mod utils;
 
 const TIME_DELTA: i64 = 1000;
 
-#[tokio::test]
-async fn test_virtual_contest_manager() {
+#[sqlx::test]
+async fn test_virtual_contest_manager(pool: PgPool) {
     let now_second = 1597988723;
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+    utils::initialize(&pool).await;
+
     let user_id = "user_id";
     let atcoder_id = "atcoder_id";
     utils::setup_internal_user(&pool, user_id, atcoder_id).await;

@@ -1,12 +1,15 @@
-use sql_client::internal::user_manager::{InternalUserInfo, UserManager};
+use sql_client::{
+    internal::user_manager::{InternalUserInfo, UserManager},
+    PgPool,
+};
 
 mod utils;
 
-#[tokio::test]
-async fn test_user_manager() {
+#[sqlx::test]
+async fn test_user_manager(pool: PgPool) {
     let internal_user_id = "user_id";
     let atcoder_user_id = "atcoder_id";
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+    utils::initialize(&pool).await;
 
     let get_result = pool.get_internal_user_info(internal_user_id).await;
     assert!(

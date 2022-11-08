@@ -1,5 +1,6 @@
 use sql_client::contest_problem::ContestProblemClient;
 use sql_client::models::ContestProblem;
+use sql_client::PgPool;
 
 mod utils;
 
@@ -11,9 +12,10 @@ fn create_problem(id: i32) -> ContestProblem {
     }
 }
 
-#[tokio::test]
-async fn test_contest_problem() {
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_contest_problem(pool: PgPool) {
+    utils::initialize(&pool).await;
+
     assert!(pool.load_contest_problem().await.unwrap().is_empty());
 
     pool.insert_contest_problem(&[create_problem(1), create_problem(2)])

@@ -28,7 +28,7 @@ pub async fn initialize_and_connect_to_test_sql() -> PgPool {
     pool
 }
 
-async fn initialize(pool: &PgPool) {
+pub async fn initialize(pool: &PgPool) {
     let sql = fs::read_to_string(SQL_FILE).await.unwrap();
     let mut conn = pool.acquire().await.unwrap();
     conn.execute(sql.as_str()).await.unwrap();

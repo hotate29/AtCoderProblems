@@ -14,9 +14,9 @@ async fn prepare_data_set(conn: &PgPool) {
     .unwrap();
 }
 
-#[actix_web::test]
-async fn test_rated_point_sum_ranking() {
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_rated_point_sum_ranking(pg_pool: PgPool) {
+    utils::initialize(&pg_pool).await;
     prepare_data_set(&pg_pool).await;
 
     let app = test::init_service(
@@ -94,9 +94,9 @@ async fn test_rated_point_sum_ranking() {
     assert_eq!(response.status(), StatusCode::BAD_REQUEST);
 }
 
-#[actix_web::test]
-async fn test_users_rated_point_sum_ranking() {
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_users_rated_point_sum_ranking(pg_pool: PgPool) {
+    utils::initialize(&pg_pool).await;
     prepare_data_set(&pg_pool).await;
 
     let app = test::init_service(

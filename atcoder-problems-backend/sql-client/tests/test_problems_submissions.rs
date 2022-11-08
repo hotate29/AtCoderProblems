@@ -36,23 +36,22 @@ async fn get_from(pool: &PgPool, table: Table) -> Vec<(String, String, i64)> {
         .unwrap()
 }
 
-async fn setup_contests() -> PgPool {
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+async fn setup_contests(pool: &PgPool) {
+    utils::initialize(pool).await;
+
     sqlx::query(
         r"
         INSERT INTO contests (id, start_epoch_second, duration_second, title, rate_change) VALUES
         ('contest1', 1, 0, '', ''), ('contest2', 1, 0, '', '');
         ",
     )
-    .execute(&pool)
+    .execute(pool)
     .await
     .unwrap();
-
-    pool
 }
 
-#[tokio::test]
-async fn test_problem_info_aggrefator() {
+#[sqlx::test]
+async fn test_problem_info_aggrefator(pool: PgPool) {
     let ignored_submission = vec![Submission {
         id: 0,
         problem_id: "problem1".to_owned(),
@@ -85,7 +84,7 @@ async fn test_problem_info_aggrefator() {
     }];
 
     {
-        let pool = setup_contests().await;
+        setup_contests(&pool).await;
 
         pool.update_submissions(&ignored_submission).await.unwrap();
         pool.update_submissions_of_problems().await.unwrap();
@@ -110,7 +109,7 @@ async fn test_problem_info_aggrefator() {
     }
 
     {
-        let pool = setup_contests().await;
+        setup_contests(&pool).await;
 
         pool.update_submissions(&submissions2).await.unwrap();
         pool.update_submissions_of_problems().await.unwrap();
@@ -130,7 +129,7 @@ async fn test_problem_info_aggrefator() {
     }
 
     {
-        let pool = setup_contests().await;
+        setup_contests(&pool).await;
 
         pool.update_submissions(&submissions1).await.unwrap();
         pool.update_submissions_of_problems().await.unwrap();
@@ -150,7 +149,7 @@ async fn test_problem_info_aggrefator() {
     }
 
     {
-        let pool = setup_contests().await;
+        setup_contests(&pool).await;
 
         pool.update_submissions(&submissions2).await.unwrap();
         pool.update_submissions_of_problems().await.unwrap();

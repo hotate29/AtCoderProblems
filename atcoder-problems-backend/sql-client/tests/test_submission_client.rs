@@ -1,11 +1,13 @@
 use sql_client::models::Submission;
 use sql_client::submission_client::{SubmissionClient, SubmissionRequest};
+use sql_client::PgPool;
 
 mod utils;
 
-#[tokio::test]
-async fn test_submission_client() {
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_submission_client(pool: PgPool) {
+    utils::initialize(&pool).await;
+
     sqlx::query(
         r"
         INSERT INTO submissions
@@ -128,9 +130,10 @@ async fn test_submission_client() {
     assert_eq!(submissions.len(), 1);
 }
 
-#[tokio::test]
-async fn test_update_submissions() {
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_update_submissions(pool: PgPool) {
+    utils::initialize(&pool).await;
+
     pool.update_submissions(&[Submission {
         id: 0,
         user_id: "old_user_name".to_owned(),

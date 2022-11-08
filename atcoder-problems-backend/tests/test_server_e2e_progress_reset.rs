@@ -3,18 +3,19 @@ use atcoder_problems_backend::server::middleware::github_auth::{
     GithubAuthentication, GithubClient, GithubToken,
 };
 use serde_json::{json, Value};
+use sql_client::PgPool;
 
 pub mod utils;
 
-#[actix_web::test]
-async fn test_progress_reset() {
+#[sqlx::test]
+async fn test_progress_reset(pg_pool: PgPool) {
     let token = "access_token";
     let mock_server = utils::start_mock_github_server(token);
     let mock_server_base_url = mock_server.base_url();
     let mock_api_server = utils::start_mock_github_api_server(token, GithubToken { id: 0 });
     let mock_api_server_base_url = mock_api_server.base_url();
 
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+    utils::initialize(&pg_pool).await;
 
     let github =
         GithubClient::new("", "", &mock_server_base_url, &mock_api_server_base_url).unwrap();

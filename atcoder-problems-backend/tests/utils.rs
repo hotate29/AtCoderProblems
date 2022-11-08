@@ -2,6 +2,7 @@ use atcoder_problems_backend::server::middleware::github_auth::GithubToken;
 use httpmock::MockServer;
 use serde_json::json;
 use sql_client::{initialize_pool, PgPool};
+use sqlx::Executor;
 use std::fs::read_to_string;
 
 const SQL_FILE: &str = "../config/database-definition.sql";
@@ -13,11 +14,13 @@ pub fn get_database_url_from_env() -> String {
 
 pub async fn initialize_and_connect_to_test_sql() -> PgPool {
     let conn = initialize_pool(get_database_url_from_env()).await.unwrap();
-
-    for query_str in read_to_string(SQL_FILE).unwrap().split(';') {
-        sql_client::query(query_str).execute(&conn).await.unwrap();
-    }
+    initialize(&conn).await;
     conn
+}
+
+pub async fn initialize(pool: &PgPool) {
+    let query = read_to_string(SQL_FILE).unwrap();
+    pool.execute(query.as_str()).await.unwrap();
 }
 
 pub fn start_mock_github_server(access_token: &str) -> MockServer {

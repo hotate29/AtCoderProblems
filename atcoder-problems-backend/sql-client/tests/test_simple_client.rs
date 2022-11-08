@@ -1,11 +1,13 @@
 use sql_client::models::{Contest, Problem};
 use sql_client::simple_client::SimpleClient;
+use sql_client::PgPool;
 
 mod utils;
 
-#[tokio::test]
-async fn test_insert_contests() {
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_insert_contests(pool: PgPool) {
+    utils::initialize(&pool).await;
+
     assert!(pool.load_contests().await.unwrap().is_empty());
     pool.insert_contests(&[Contest {
         id: "contest1".to_string(),
@@ -31,9 +33,10 @@ async fn test_insert_contests() {
     .unwrap();
 }
 
-#[tokio::test]
-async fn test_insert_problems() {
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_insert_problems(pool: PgPool) {
+    utils::initialize(&pool).await;
+
     assert!(pool.load_problems().await.unwrap().is_empty());
     pool.insert_problems(&[Problem {
         id: "problem1".to_string(),
