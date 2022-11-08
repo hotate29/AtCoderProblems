@@ -71,7 +71,7 @@ cargo run --bin fix_invalid_submissions
 
 ```bash
 docker-compose up -d
-docker-compose exec backend-development cargo test --workspace -- --test-threads=1
+docker-compose exec backend-development cargo test --workspace
 ```
 
 ## Format
