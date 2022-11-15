@@ -51,7 +51,7 @@ async fn setup_contests(pool: &PgPool) {
 }
 
 #[sqlx::test]
-async fn test_problem_info_aggrefator(pool: PgPool) {
+async fn test_problem_info_aggregator(pool: PgPool) {
     let ignored_submission = vec![Submission {
         id: 0,
         problem_id: "problem1".to_owned(),
