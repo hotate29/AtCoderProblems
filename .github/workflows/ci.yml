@@ -43,6 +43,7 @@ jobs:
         with:
           workspaces: atcoder-problems-backend -> target
 
+      # ここは無くてもいいかも
       - name: Setup Postgresql
         run: psql ${DATABASE_URL} < ../config/database-definition.sql
 
