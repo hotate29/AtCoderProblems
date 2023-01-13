@@ -86,7 +86,7 @@ jobs:
         run: yarn
 
       - name: Setup mdBook
-        uses: peaceiris/actions-mdbook@v1.1.13
+        uses: peaceiris/actions-mdbook@v1.2.0
         with:
           mdbook-version: 'latest'
 
