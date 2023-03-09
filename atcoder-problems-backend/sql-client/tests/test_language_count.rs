@@ -1,11 +1,13 @@
 use sql_client::language_count::LanguageCountClient;
 use sql_client::models::{Submission, UserLanguageCount, UserLanguageCountRank, UserProblemCount};
+use sql_client::PgPool;
 
 mod utils;
 
-#[tokio::test]
-async fn test_language_count() {
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_language_count(pool: PgPool) {
+    utils::initialize(&pool).await;
+
     let mut submissions = vec![
         Submission {
             id: 1,

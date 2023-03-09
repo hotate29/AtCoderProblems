@@ -1,16 +1,20 @@
-use sql_client::internal::progress_reset_manager::{
-    ProgressResetItem, ProgressResetList, ProgressResetManager,
+use sql_client::{
+    internal::progress_reset_manager::{
+        ProgressResetItem, ProgressResetList, ProgressResetManager,
+    },
+    PgPool,
 };
 
 mod utils;
 
-#[tokio::test]
-async fn test_progress_reset_manager() {
+#[sqlx::test]
+async fn test_progress_reset_manager(pool: PgPool) {
     let internal_user_id = "user_id";
     let atcoder_user_id = "atcoder_id";
     let problem_id = "problem_id";
     let reset_epoch_second = 42;
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+
+    utils::initialize(&pool).await;
     utils::setup_internal_user(&pool, internal_user_id, atcoder_user_id).await;
 
     let list = pool

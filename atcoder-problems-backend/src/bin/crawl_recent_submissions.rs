@@ -16,7 +16,7 @@ async fn crawl(url: &str) -> Result<()> {
 async fn main() {
     init_log_config().unwrap();
     log::info!("Started");
-    let url = env::var("SQL_URL").expect("SQL_URL must be set.");
+    let url = env::var("DATABASE_URL").expect("DATABASE_URL must be set.");
 
     loop {
         log::info!("Start new loop");

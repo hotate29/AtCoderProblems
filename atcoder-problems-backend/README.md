@@ -45,7 +45,7 @@ docker-compose exec backend-development cargo build
 ## Run
 
 ```bash
-export SQL_URL=... # Connection URL of PostgreSQL
+export DATABASE_URL=... # Connection URL of PostgreSQL
 export CLIENT_ID=... # GitHub client_id, which is required to use the login function.
 export CLIENT_SECRET=... # GitHub client_secret, which is required to use the login function.
 
@@ -71,7 +71,7 @@ cargo run --bin fix_invalid_submissions
 
 ```bash
 docker-compose up -d
-docker-compose exec backend-development cargo test --workspace -- --test-threads=1
+docker-compose exec backend-development cargo test --workspace
 ```
 
 ## Format

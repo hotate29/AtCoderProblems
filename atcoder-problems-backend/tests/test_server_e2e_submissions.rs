@@ -36,9 +36,9 @@ async fn prepare_data_set(conn: &PgPool) {
     .unwrap();
 }
 
-#[actix_web::test]
-async fn test_user_submissions() {
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_user_submissions(pg_pool: PgPool) {
+    utils::initialize(&pg_pool).await;
     prepare_data_set(&pg_pool).await;
 
     let app = test::init_service(
@@ -65,9 +65,9 @@ async fn test_user_submissions() {
     assert!(submissions.iter().all(|s| s.user_id == "u2"));
 }
 
-#[actix_web::test]
-async fn test_user_submissions_fromtime() {
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_user_submissions_fromtime(pg_pool: PgPool) {
+    utils::initialize(&pg_pool).await;
     prepare_data_set(&pg_pool).await;
 
     let app = test::init_service(
@@ -118,9 +118,9 @@ async fn test_user_submissions_fromtime() {
     assert!(submissions.is_empty());
 }
 
-#[actix_web::test]
-async fn test_time_submissions() {
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_time_submissions(pg_pool: PgPool) {
+    utils::initialize(&pg_pool).await;
     prepare_data_set(&pg_pool).await;
 
     let app = test::init_service(
@@ -139,9 +139,9 @@ async fn test_time_submissions() {
     assert!(submissions.iter().all(|s| s.epoch_second >= 100));
 }
 
-#[actix_web::test]
-async fn test_submission_count() {
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_submission_count(pg_pool: PgPool) {
+    utils::initialize(&pg_pool).await;
     prepare_data_set(&pg_pool).await;
 
     let app = test::init_service(
@@ -166,9 +166,9 @@ async fn test_submission_count() {
     assert_eq!(response["count"], serde_json::json!(2));
 }
 
-#[actix_web::test]
-async fn test_invalid_path() {
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_invalid_path(pg_pool: PgPool) {
+    utils::initialize(&pg_pool).await;
     prepare_data_set(&pg_pool).await;
 
     let app = test::init_service(
@@ -197,9 +197,9 @@ async fn test_invalid_path() {
     assert_eq!(response.status(), StatusCode::NOT_FOUND);
 }
 
-#[actix_web::test]
-async fn test_health_check() {
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_health_check(pg_pool: PgPool) {
+    utils::initialize(&pg_pool).await;
     prepare_data_set(&pg_pool).await;
 
     let app = test::init_service(
@@ -217,9 +217,9 @@ async fn test_health_check() {
     assert_eq!(response.status(), StatusCode::OK);
 }
 
-#[actix_web::test]
-async fn test_cors() {
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_cors(pg_pool: PgPool) {
+    utils::initialize(&pg_pool).await;
     prepare_data_set(&pg_pool).await;
 
     let app = test::init_service(
@@ -269,9 +269,9 @@ async fn test_cors() {
     );
 }
 
-#[actix_web::test]
-async fn test_users_and_time() {
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_users_and_time(pg_pool: PgPool) {
+    utils::initialize(&pg_pool).await;
     prepare_data_set(&pg_pool).await;
 
     let app = test::init_service(

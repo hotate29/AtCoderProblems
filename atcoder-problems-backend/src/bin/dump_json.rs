@@ -20,7 +20,7 @@ const LANGUAGE_COUNT_LIMIT: usize = 1000;
 async fn main() -> Result<()> {
     init_log_config()?;
     log::info!("Started!");
-    let url = env::var("SQL_URL")?;
+    let url = env::var("DATABASE_URL")?;
     let pg_pool = initialize_pool(&url).await?;
 
     let client = s3::S3Client::new()?;

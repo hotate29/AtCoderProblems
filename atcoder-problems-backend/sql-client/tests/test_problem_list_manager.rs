@@ -1,14 +1,18 @@
-use sql_client::internal::problem_list_manager::{ListItem, ProblemList, ProblemListManager};
+use sql_client::{
+    internal::problem_list_manager::{ListItem, ProblemList, ProblemListManager},
+    PgPool,
+};
 
 mod utils;
 
-#[tokio::test]
-async fn test_problem_list_manager() {
+#[sqlx::test]
+async fn test_problem_list_manager(pool: PgPool) {
     let internal_user_id = "user_id";
     let atcoder_user_id = "atcoder_id";
     let list_name = "list_name";
     let problem_id = "problem_id";
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+
+    utils::initialize(&pool).await;
     utils::setup_internal_user(&pool, internal_user_id, atcoder_user_id).await;
 
     assert!(

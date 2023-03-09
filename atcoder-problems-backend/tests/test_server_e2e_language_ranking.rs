@@ -22,9 +22,9 @@ async fn prepare_data_set(conn: &PgPool) {
     .unwrap();
 }
 
-#[actix_web::test]
-async fn test_language_ranking() {
-    let conn = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_language_ranking(conn: PgPool) {
+    utils::initialize(&conn).await;
     prepare_data_set(&conn).await;
     let app = test::init_service(
         App::new()

@@ -1,11 +1,13 @@
 use sql_client::accepted_count::AcceptedCountClient;
 use sql_client::models::{Submission, UserProblemCount};
+use sql_client::PgPool;
 
 mod utils;
 
-#[tokio::test]
-async fn test_accepted_count() {
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_accepted_count(pool: PgPool) {
+    utils::initialize(&pool).await;
+
     let submissions = [
         Submission {
             id: 1,

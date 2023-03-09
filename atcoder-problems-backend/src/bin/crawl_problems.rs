@@ -8,7 +8,7 @@ use std::env;
 async fn main() {
     init_log_config().unwrap();
     log::info!("Started");
-    let url = env::var("SQL_URL").expect("SQL_URL is not set.");
+    let url = env::var("DATABASE_URL").expect("DATABASE_URL is not set.");
 
     let db = initialize_pool(&url).await.unwrap();
     let crawler = ProblemCrawler::new(db, AtCoderClient::default());

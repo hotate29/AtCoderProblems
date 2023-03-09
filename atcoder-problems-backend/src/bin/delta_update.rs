@@ -16,7 +16,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     info!("Started!");
 
     info!("Connecting to SQL ...");
-    let url = env::var("SQL_URL")?;
+    let url = env::var("DATABASE_URL")?;
     let conn = initialize_pool(&url).await?;
 
     info!("Loading submissions ...");

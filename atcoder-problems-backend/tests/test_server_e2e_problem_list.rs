@@ -3,20 +3,21 @@ use atcoder_problems_backend::server::middleware::github_auth::{
     GithubAuthentication, GithubClient, GithubToken,
 };
 use serde_json::{json, Value};
+use sql_client::PgPool;
 
 pub mod utils;
 
 const VALID_CODE: &str = "valid-code";
 const VALID_TOKEN: &str = "valid-token";
 
-#[actix_web::test]
-async fn test_list() {
+#[sqlx::test]
+async fn test_list(pg_pool: PgPool) {
     let mock_server = utils::start_mock_github_server(VALID_TOKEN);
     let mock_server_base_url = mock_server.base_url();
     let mock_api_server = utils::start_mock_github_api_server(VALID_TOKEN, GithubToken { id: 0 });
     let mock_api_server_base_url = mock_api_server.base_url();
 
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+    utils::initialize(&pg_pool).await;
 
     let github =
         GithubClient::new("", "", &mock_server_base_url, &mock_api_server_base_url).unwrap();
@@ -146,8 +147,8 @@ async fn test_list() {
 
     assert_eq!(response, json!([]));
 }
-#[actix_web::test]
-async fn test_invalid_token() {
+#[sqlx::test]
+async fn test_invalid_token(pg_pool: PgPool) {
     let mock_server = utils::start_mock_github_server(VALID_TOKEN);
     let mock_server_base_url = mock_server.base_url();
     let mock_api_server = utils::start_mock_github_api_server(VALID_TOKEN, GithubToken { id: 0 });
@@ -156,7 +157,7 @@ async fn test_invalid_token() {
     let github =
         GithubClient::new("", "", &mock_server_base_url, &mock_api_server_base_url).unwrap();
 
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+    utils::initialize(&pg_pool).await;
 
     let app = test::init_service(
         actix_web::App::new()
@@ -186,14 +187,14 @@ async fn test_invalid_token() {
     assert!(!response.status().is_success());
 }
 
-#[actix_web::test]
-async fn test_list_item() {
+#[sqlx::test]
+async fn test_list_item(pg_pool: PgPool) {
     let mock_server = utils::start_mock_github_server(VALID_TOKEN);
     let mock_server_base_url = mock_server.base_url();
     let mock_api_server = utils::start_mock_github_api_server(VALID_TOKEN, GithubToken { id: 0 });
     let mock_api_server_base_url = mock_api_server.base_url();
 
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+    utils::initialize(&pg_pool).await;
 
     let github =
         GithubClient::new("", "", &mock_server_base_url, &mock_api_server_base_url).unwrap();
@@ -320,14 +321,14 @@ async fn test_list_item() {
     );
 }
 
-#[actix_web::test]
-async fn test_list_delete() {
+#[sqlx::test]
+async fn test_list_delete(pg_pool: PgPool) {
     let mock_server = utils::start_mock_github_server(VALID_TOKEN);
     let mock_server_base_url = mock_server.base_url();
     let mock_api_server = utils::start_mock_github_api_server(VALID_TOKEN, GithubToken { id: 0 });
     let mock_api_server_base_url = mock_api_server.base_url();
 
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+    utils::initialize(&pg_pool).await;
 
     let github =
         GithubClient::new("", "", &mock_server_base_url, &mock_api_server_base_url).unwrap();
@@ -397,14 +398,14 @@ async fn test_list_delete() {
     assert!(list.is_empty());
 }
 
-#[actix_web::test]
-async fn test_register_twice() {
+#[sqlx::test]
+async fn test_register_twice(pg_pool: PgPool) {
     let mock_server = utils::start_mock_github_server(VALID_TOKEN);
     let mock_server_base_url = mock_server.base_url();
     let mock_api_server = utils::start_mock_github_api_server(VALID_TOKEN, GithubToken { id: 0 });
     let mock_api_server_base_url = mock_api_server.base_url();
 
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+    utils::initialize(&pg_pool).await;
 
     let github =
         GithubClient::new("", "", &mock_server_base_url, &mock_api_server_base_url).unwrap();

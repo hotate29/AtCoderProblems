@@ -31,9 +31,10 @@ async fn insert_data_set2(conn: &PgPool) {
     .unwrap();
 }
 
-#[actix_web::test]
-async fn test_language_count() {
-    let conn = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_language_count(conn: PgPool) {
+    utils::initialize(&conn).await;
+
     let app = test::init_service(
         App::new()
             .app_data(web::Data::new(conn.clone()))

@@ -7,7 +7,7 @@ use atcoder_problems_backend::utils::init_log_config;
 #[actix_web::main]
 async fn main() {
     init_log_config().unwrap();
-    let database_url = env::var("SQL_URL").expect("SQL_URL is not set.");
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL is not set.");
     let port = 8080;
 
     let client_id = env::var("CLIENT_ID").unwrap_or_else(|_| String::new());

@@ -28,7 +28,7 @@ async fn iteration(url: &str) -> Result<()> {
 async fn main() {
     init_log_config().unwrap();
     info!("Started");
-    let url = env::var("SQL_URL").expect("SQL_URL is not set.");
+    let url = env::var("DATABASE_URL").expect("DATABASE_URL is not set.");
 
     loop {
         info!("Start new loop");

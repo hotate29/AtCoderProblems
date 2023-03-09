@@ -3,11 +3,13 @@ use actix_web::{test, web, App};
 use atcoder_problems_backend::server::config_services;
 use serde_json::{json, Value};
 
+use sql_client::PgPool;
+
 pub mod utils;
 
-#[actix_web::test]
-async fn test_ac_ranking() {
-    let pg_pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_ac_ranking(pg_pool: PgPool) {
+    utils::initialize(&pg_pool).await;
 
     sql_client::query(
         r"INSERT INTO accepted_count (user_id, problem_count) VALUES ('u1', 1), ('u2', 2), ('u3', 1)",

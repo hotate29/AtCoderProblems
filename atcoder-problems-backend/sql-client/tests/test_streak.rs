@@ -1,12 +1,14 @@
 use sql_client::models::UserStreak;
 use sql_client::streak::StreakClient;
 use sql_client::submission_client::{SubmissionClient, SubmissionRequest};
+use sql_client::PgPool;
 
 mod utils;
 
-#[tokio::test]
-async fn test_streak_ranking() {
-    let pool = utils::initialize_and_connect_to_test_sql().await;
+#[sqlx::test]
+async fn test_streak_ranking(pool: PgPool) {
+    utils::initialize(&pool).await;
+
     sqlx::query(
         r"
         INSERT INTO submissions (id, epoch_second, problem_id, contest_id, user_id, language, point, length, result) VALUES

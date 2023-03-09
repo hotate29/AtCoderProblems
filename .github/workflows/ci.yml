@@ -8,9 +8,8 @@ on:
 env:
   CARGO_TERM_COLOR: always
   RUST_BACKTRACE: 1
-  RUST_TEST_THREADS: 1
   CARGO_PROFILE_TEST_DEBUG: 0
-  SQL_URL: postgres://db_user:db_pass@localhost:5432/test_db
+  DATABASE_URL: postgres://db_user:db_pass@localhost:5432/test_db
 
 jobs:
   backend_test:
@@ -44,8 +43,9 @@ jobs:
         with:
           workspaces: atcoder-problems-backend -> target
 
+      # ここは無くてもいいかも
       - name: Setup Postgresql
-        run: psql ${SQL_URL} < ../config/database-definition.sql
+        run: psql ${DATABASE_URL} < ../config/database-definition.sql
 
       - name: Setup
         run: rustup component add rustfmt
@@ -60,7 +60,7 @@ jobs:
         run: cargo test --no-run --workspace --locked --verbose
 
       - name: Run tests
-        run: cargo test --workspace --locked --verbose -- --test-threads=1
+        run: cargo test --workspace --locked --verbose
 
   frontend_test:
     name: Run frontend tests
