@@ -77,9 +77,6 @@ jobs:
         with:
           node-version: 16
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-
       - name: Cache node_modules
         uses: actions/cache@v3.2.3
         with:
@@ -89,7 +86,7 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('atcoder-problems-frontend/yarn.lock') }}
 
       - name: Install dependencies
-        run: bun install -y
+        run: yarn
 
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1.2.0
