@@ -185,7 +185,7 @@ export const ProblemSetGenerator: React.FC<Props> = (props) => {
                 return (
                   <Button
                     key={contestType}
-                    active={contestTypeOption[contestType] as boolean}
+                    active={contestTypeOption[contestType]}
                     onClick={(): void => {
                       setContestTypeOption({
                         ...contestTypeOption,

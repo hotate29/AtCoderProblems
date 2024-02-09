@@ -141,23 +141,27 @@ describe("test makeCategoryCounts", () => {
       {
         contest_id: "abc043",
         id: "abc043_a",
-        title:
-          "A. キャンディーとN人の子供イージー / Children and Candies (ABC Edit)",
+        problem_index: "A",
+        name:
+          "キャンディーとN人の子供イージー / Children and Candies (ABC Edit)",
       },
       {
         contest_id: "abc043",
         id: "abc043_b",
-        title: "B. バイナリハックイージー / Unhappy Hacking (ABC Edit)",
+        problem_index: "B",
+        name: "バイナリハックイージー / Unhappy Hacking (ABC Edit)",
       },
       {
         contest_id: "arc059",
         id: "arc059_a",
-        title: "C. いっしょ / Be Together",
+        problem_index: "C",
+        name: "いっしょ / Be Together",
       },
       {
         contest_id: "arc059",
         id: "arc059_b",
-        title: "D. アンバランス / Unbalanced",
+        problem_index: "D",
+        name: "アンバランス / Unbalanced",
       },
     ];
     const contestToProblems: Map<ContestId, Problem[]> = new Map([
@@ -217,23 +221,27 @@ describe("test makeCategoryCounts", () => {
       {
         contest_id: "abc043",
         id: "abc043_a",
-        title:
+        problem_index: "A",
+        name:
           "A. キャンディーとN人の子供イージー / Children and Candies (ABC Edit)",
       },
       {
         contest_id: "abc043",
         id: "abc043_b",
-        title: "B. バイナリハックイージー / Unhappy Hacking (ABC Edit)",
+        problem_index: "B",
+        name: "B. バイナリハックイージー / Unhappy Hacking (ABC Edit)",
       },
       {
         contest_id: "arc059",
         id: "arc059_a",
-        title: "C. いっしょ / Be Together",
+        problem_index: "C",
+        name: "C. いっしょ / Be Together",
       },
       {
         contest_id: "arc059",
         id: "arc059_b",
-        title: "D. アンバランス / Unbalanced",
+        problem_index: "D",
+        name: "D. アンバランス / Unbalanced",
       },
     ];
     const contestToProblems: Map<ContestId, Problem[]> = new Map([
@@ -293,23 +301,27 @@ describe("test makeCategoryCounts", () => {
       {
         contest_id: "abc043",
         id: "abc043_a",
-        title:
-          "A. キャンディーとN人の子供イージー / Children and Candies (ABC Edit)",
+        problem_index: "A",
+        name:
+          "キャンディーとN人の子供イージー / Children and Candies (ABC Edit)",
       },
       {
         contest_id: "abc043",
         id: "abc043_b",
-        title: "B. バイナリハックイージー / Unhappy Hacking (ABC Edit)",
+        problem_index: "B",
+        name: "バイナリハックイージー / Unhappy Hacking (ABC Edit)",
       },
       {
         contest_id: "arc059",
         id: "arc059_a",
-        title: "C. いっしょ / Be Together",
+        problem_index: "C",
+        name: "いっしょ / Be Together",
       },
       {
         contest_id: "arc059",
         id: "arc059_b",
-        title: "D. アンバランス / Unbalanced",
+        problem_index: "D",
+        name: "アンバランス / Unbalanced",
       },
     ];
     const contestToProblems: Map<ContestId, Problem[]> = new Map([
