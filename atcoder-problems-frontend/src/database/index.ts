@@ -46,7 +46,7 @@ export const saveData = <T>(
   objectStoreName: string,
   data: T
 ) => {
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     const request = db
       .transaction([objectStoreName], "readwrite")
       .objectStore(objectStoreName)
