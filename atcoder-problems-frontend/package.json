@@ -9,7 +9,7 @@
     "cy:run": "cypress run",
     "eject": "react-scripts eject",
     "format": "yarn run sort-package-json && yarn run prettier && yarn run lint:fix",
-    "lint": "eslint --ignore-path .gitignore \"./src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint --ignore-path .gitignore \"./src/**/*.{js,jsx,ts,tsx}\" --cache",
     "lint:fix": "yarn run lint --fix",
     "md:build": "mkdir -p build/book && yarn run md:clean && mdbook build ../guide/ -d=../atcoder-problems-frontend/build/book/",
     "md:clean": "mdbook clean ../guide/ -d=../atcoder-problems-frontend/build/book/",

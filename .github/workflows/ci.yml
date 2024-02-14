@@ -84,6 +84,7 @@ jobs:
             ~/.cache/Cypress
             ./atcoder-problems-frontend/node_modules
             .tsconfig.tsbuildinfo
+            .eslintcache
           key: ${{ runner.os }}-cargo-${{ hashFiles('atcoder-problems-frontend/yarn.lock') }}
 
       - name: Install dependencies
