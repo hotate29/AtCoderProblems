@@ -1,5 +1,5 @@
 import { AGC_001_START } from "../utils/ContestClassifier";
-import { getRatedTarget, RatedTargetType } from "./ContestLink";
+import { AllRated, Unrated, getRatedTarget } from "./ContestLink";
 
 const DEFAULT_CONTEST = {
   id: "",
@@ -41,7 +41,7 @@ describe("Infer rating change of contests", () => {
       rate_change: "All",
     };
 
-    expect(getRatedTarget(contest)).toBe(RatedTargetType.All);
+    expect(getRatedTarget(contest)).toBe(AllRated);
   });
   it("new AGC level", () => {
     const contest = {
@@ -49,7 +49,7 @@ describe("Infer rating change of contests", () => {
       rate_change: "1200 ~",
     };
 
-    expect(getRatedTarget(contest)).toBe(RatedTargetType.All);
+    expect(getRatedTarget(contest)).toBe(AllRated);
   });
   it("buggy unrated", () => {
     const contest = {
@@ -58,7 +58,7 @@ describe("Infer rating change of contests", () => {
       rate_change: "All",
     };
 
-    expect(getRatedTarget(contest)).toBe(RatedTargetType.Unrated);
+    expect(getRatedTarget(contest)).toBe(Unrated);
   });
   it("unrated", () => {
     const contest = {
@@ -66,6 +66,6 @@ describe("Infer rating change of contests", () => {
       rate_change: "-",
     };
 
-    expect(getRatedTarget(contest)).toBe(RatedTargetType.Unrated);
+    expect(getRatedTarget(contest)).toBe(Unrated);
   });
 });
