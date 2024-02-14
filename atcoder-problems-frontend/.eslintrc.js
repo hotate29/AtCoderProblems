@@ -45,6 +45,13 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": "error",
     // TODO: enable the following rules in the future
     "require-atomic-updates": 0, // https://github.com/eslint/eslint/issues/11899
+
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        checksVoidReturn: false,
+      },
+    ],
   },
   settings: {
     react: { version: "detect" },
