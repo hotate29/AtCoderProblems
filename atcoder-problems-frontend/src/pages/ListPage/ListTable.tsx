@@ -76,30 +76,32 @@ export const statusFilters = [
   "AC during Contest",
   "AC after Contest",
 ] as const;
-export type StatusFilter = typeof statusFilters[number];
+export type StatusFilter = (typeof statusFilters)[number];
 
 const convertSortByParam = (value: string | null): ProblemRowDataField => {
   return (
-    ([
-      "id",
-      "title",
-      "contest",
-      "contestDate",
-      "contestTitle",
-      "lastAcceptedDate",
-      "solverCount",
-      "point",
-      "problemModel",
-      "firstUserId",
-      "executionTime",
-      "codeLength",
-      "mergedProblem",
-      "shortestUserId",
-      "fastestUserId",
-      "status",
-      "solveProbability",
-      "timeEstimation",
-    ] as const).find((v) => v === value) ?? "contestDate"
+    (
+      [
+        "id",
+        "title",
+        "contest",
+        "contestDate",
+        "contestTitle",
+        "lastAcceptedDate",
+        "solverCount",
+        "point",
+        "problemModel",
+        "firstUserId",
+        "executionTime",
+        "codeLength",
+        "mergedProblem",
+        "shortestUserId",
+        "fastestUserId",
+        "status",
+        "solveProbability",
+        "timeEstimation",
+      ] as const
+    ).find((v) => v === value) ?? "contestDate"
   );
 };
 
@@ -137,50 +139,48 @@ export const ListTable: React.FC<Props> = (props) => {
   const contestMap = useContestMap();
   const statusLabelMap = constructStatusLabelMap(filteredSubmissions, userId);
   const rowData = Array.from(mergedProblemMap.values())
-    .map(
-      (p: MergedProblem): ProblemRowData => {
-        const contest = contestMap?.get(p.contest_id);
-        const contestDate =
-          contest && contest.start_epoch_second > 0
-            ? formatMomentDate(parseSecond(contest.start_epoch_second))
-            : "";
-        const contestTitle = contest ? contest.title : "";
+    .map((p: MergedProblem): ProblemRowData => {
+      const contest = contestMap?.get(p.contest_id);
+      const contestDate =
+        contest && contest.start_epoch_second > 0
+          ? formatMomentDate(parseSecond(contest.start_epoch_second))
+          : "";
+      const contestTitle = contest ? contest.title : "";
 
-        const status = statusLabelMap.get(p.id) ?? noneStatus();
-        const lastAcceptedDate =
-          status.label === StatusLabel.Success
-            ? formatMomentDate(parseSecond(status.lastAcceptedEpochSecond))
-            : "";
-        const point = p.point ?? INF_POINT;
-        const firstUserId = p.first_user_id ? p.first_user_id : "";
-        const executionTime =
-          p.execution_time != null ? p.execution_time : INF_POINT;
-        const codeLength = p.source_code_length
-          ? p.source_code_length
-          : INF_POINT;
-        const shortestUserId = p.shortest_user_id ? p.shortest_user_id : "";
-        const fastestUserId = p.fastest_user_id ? p.fastest_user_id : "";
-        const problemModel = problemModels?.get(p.id);
-        return {
-          id: p.id,
-          title: `${p.problem_index}. ${p.name}`,
-          contest,
-          contestDate,
-          contestTitle,
-          lastAcceptedDate,
-          solverCount: p.solver_count ? p.solver_count : 0,
-          point,
-          problemModel,
-          firstUserId,
-          executionTime,
-          codeLength,
-          mergedProblem: p,
-          shortestUserId,
-          fastestUserId,
-          status,
-        };
-      }
-    )
+      const status = statusLabelMap.get(p.id) ?? noneStatus();
+      const lastAcceptedDate =
+        status.label === StatusLabel.Success
+          ? formatMomentDate(parseSecond(status.lastAcceptedEpochSecond))
+          : "";
+      const point = p.point ?? INF_POINT;
+      const firstUserId = p.first_user_id ? p.first_user_id : "";
+      const executionTime =
+        p.execution_time != null ? p.execution_time : INF_POINT;
+      const codeLength = p.source_code_length
+        ? p.source_code_length
+        : INF_POINT;
+      const shortestUserId = p.shortest_user_id ? p.shortest_user_id : "";
+      const fastestUserId = p.fastest_user_id ? p.fastest_user_id : "";
+      const problemModel = problemModels?.get(p.id);
+      return {
+        id: p.id,
+        title: `${p.problem_index}. ${p.name}`,
+        contest,
+        contestDate,
+        contestTitle,
+        lastAcceptedDate,
+        solverCount: p.solver_count ? p.solver_count : 0,
+        point,
+        problemModel,
+        firstUserId,
+        executionTime,
+        codeLength,
+        mergedProblem: p,
+        shortestUserId,
+        fastestUserId,
+        status,
+      };
+    })
     .sort((a, b) => {
       const dateOrder = b.contestDate.localeCompare(a.contestDate);
       return dateOrder === 0 ? a.title.localeCompare(b.title) : dateOrder;
@@ -424,11 +424,8 @@ export const ListTable: React.FC<Props> = (props) => {
       dataField: "executionTime",
       dataSort: true,
       dataFormat: (executionTime: number, row): React.ReactElement => {
-        const {
-          fastest_submission_id,
-          fastest_contest_id,
-          fastest_user_id,
-        } = row.mergedProblem;
+        const { fastest_submission_id, fastest_contest_id, fastest_user_id } =
+          row.mergedProblem;
         if (fastest_submission_id && fastest_contest_id && fastest_user_id) {
           return (
             <a
@@ -480,11 +477,8 @@ export const ListTable: React.FC<Props> = (props) => {
       dataField: "firstUserId",
       dataSort: true,
       dataFormat: (_: string, row): React.ReactElement => {
-        const {
-          first_submission_id,
-          first_contest_id,
-          first_user_id,
-        } = row.mergedProblem;
+        const { first_submission_id, first_contest_id, first_user_id } =
+          row.mergedProblem;
         if (first_submission_id && first_contest_id && first_user_id) {
           return (
             <a

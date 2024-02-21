@@ -16,8 +16,8 @@ export function countBy<T, K>(
   selector: (item: T) => K
 ): Map<K, number> {
   const grouped = groupBy(array, selector);
-  const count: [K, number][] = Array.from(
-    grouped.entries()
-  ).map(([key, group]) => [key, group.length]);
+  const count: [K, number][] = Array.from(grouped.entries()).map(
+    ([key, group]) => [key, group.length]
+  );
   return new Map(count);
 }

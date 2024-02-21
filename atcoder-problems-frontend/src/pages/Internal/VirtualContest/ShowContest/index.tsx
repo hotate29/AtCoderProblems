@@ -260,7 +260,7 @@ const Standings = (props: StandingsProps) => {
 };
 
 const NormalContestTabTypes = ["Problems", "Standings"] as const;
-type NormalContestTabType = typeof NormalContestTabTypes[number];
+type NormalContestTabType = (typeof NormalContestTabTypes)[number];
 const TAB_PARAM = "activeTab";
 
 interface NormalContestPageProps extends StandingsProps {
@@ -353,20 +353,18 @@ export const ShowContest = (props: Props) => {
   const enableEstimatedPerformances = contestProblems.length < 10;
 
   const showProblems = start <= now;
-  const problems = contestProblems.map(
-    (item): VirtualContestProblem => {
-      const problem = problemMap?.get(item.id);
-      if (problem) {
-        return {
-          item,
-          contestId: problem.contest_id,
-          title: `${problem.problem_index}. ${problem.name}`,
-        };
-      } else {
-        return { item };
-      }
+  const problems = contestProblems.map((item): VirtualContestProblem => {
+    const problem = problemMap?.get(item.id);
+    if (problem) {
+      return {
+        item,
+        contestId: problem.contest_id,
+        title: `${problem.problem_index}. ${problem.name}`,
+      };
+    } else {
+      return { item };
     }
-  );
+  });
 
   return (
     <>

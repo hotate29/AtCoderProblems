@@ -333,9 +333,8 @@ export const ProblemSetGenerator: React.FC<Props> = (props) => {
                       classifyContest(contest)
                     );
                   });
-                  candidateContests = candidateContests.concat(
-                    filteredContests
-                  );
+                  candidateContests =
+                    candidateContests.concat(filteredContests);
                 }
               });
               candidateProblems = candidateProblems.filter((p) => {

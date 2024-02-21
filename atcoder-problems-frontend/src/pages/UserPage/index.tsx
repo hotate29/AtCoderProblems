@@ -30,7 +30,7 @@ const userPageTabs = [
 
 const TAB_PARAM = "userPageTab";
 
-type UserPageTab = typeof userPageTabs[number];
+type UserPageTab = (typeof userPageTabs)[number];
 
 interface Props {
   userId: string;

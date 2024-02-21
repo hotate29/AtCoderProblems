@@ -39,7 +39,7 @@ import { FilteringHeatmap } from "./FilteringHeatmap";
 import { TeeChart } from "./TeeChart";
 
 const chartTypes = ["Simple", "Colored"] as const;
-type ChartType = typeof chartTypes[number];
+type ChartType = (typeof chartTypes)[number];
 interface ChartTypeTabProps {
   active: ChartType;
   setActive: (next: ChartType) => void;
@@ -97,18 +97,14 @@ interface Props {
 }
 
 export const ProgressChartBlock: React.FC<Props> = (props) => {
-  const [
-    dailyEffortBarChartActiveTab,
-    setDailyEffortBarChartActiveTab,
-  ] = useLocalStorage<ChartType>("dailyEffortBarChartActiveTab", "Simple");
+  const [dailyEffortBarChartActiveTab, setDailyEffortBarChartActiveTab] =
+    useLocalStorage<ChartType>("dailyEffortBarChartActiveTab", "Simple");
   const [dailyEffortYRange, setDailyEffortYRange] = useLocalStorage<YRanges>(
     "dailyEffortYRange",
     "auto"
   );
-  const [
-    climbingLineChartActiveTab,
-    setClimbingLineChartActiveTab,
-  ] = useLocalStorage<ChartType>("climbingLineChartActiveTab", "Simple");
+  const [climbingLineChartActiveTab, setClimbingLineChartActiveTab] =
+    useLocalStorage<ChartType>("climbingLineChartActiveTab", "Simple");
   const [reverseColorOrder, setReverseColorOrder] = useLocalStorage(
     "climbingLineChartReverseColorOrder",
     false

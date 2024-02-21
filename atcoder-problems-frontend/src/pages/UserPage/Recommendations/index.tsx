@@ -44,23 +44,18 @@ interface Props {
 export const Recommendations = (props: Props) => {
   const history = useHistory();
 
-  const [recommendOption, setRecommendOption] = useLocalStorage<
-    RecommendOption
-  >("recommendOption", "Moderate");
-  const [recommendExperimental, setRecommendExperimental] = useLocalStorage<
-    boolean
-  >("recommendExperimental", true);
+  const [recommendOption, setRecommendOption] =
+    useLocalStorage<RecommendOption>("recommendOption", "Moderate");
+  const [recommendExperimental, setRecommendExperimental] =
+    useLocalStorage<boolean>("recommendExperimental", true);
   const [excludeOption, setExcludeOption] = useLocalStorage<ExcludeOption>(
     "recoomendExcludeOption",
     "Exclude"
   );
   const [recommendNum, setRecommendNum] = useState(10);
 
-  const [
-    getSelectedProblemIds,
-    selectProblemIds,
-    deselectProblemIds,
-  ] = useProblemIdSelection();
+  const [getSelectedProblemIds, selectProblemIds, deselectProblemIds] =
+    useProblemIdSelection();
 
   const userSubmissions = useUserSubmission(props.userId) ?? [];
   const { data: mergedProblemsMap } = useMergedProblemMap();

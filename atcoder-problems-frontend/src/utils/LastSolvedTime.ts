@@ -13,7 +13,7 @@ export const ExcludeOptions = [
   "1 Week",
   "Don't exclude",
 ] as const;
-export type ExcludeOption = typeof ExcludeOptions[number];
+export type ExcludeOption = (typeof ExcludeOptions)[number];
 
 export const formatExcludeOption = (excludeOption: ExcludeOption): string => {
   switch (excludeOption) {

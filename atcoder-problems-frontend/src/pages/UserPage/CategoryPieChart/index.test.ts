@@ -192,9 +192,9 @@ describe("test makeCategoryCounts", () => {
     ];
 
     const expected = new Map<ContestCategory, StatusCount>(
-      ContestCategories.filter(
-        (category) => category !== "ABC"
-      ).map((category) => [category, { solved: 0, rejected: 0, total: 0 }])
+      ContestCategories.filter((category) => category !== "ABC").map(
+        (category) => [category, { solved: 0, rejected: 0, total: 0 }]
+      )
     );
     expected.set("ABC", { solved: 1, rejected: 0, total: 4 });
     expect(
@@ -268,9 +268,9 @@ describe("test makeCategoryCounts", () => {
     ];
 
     const expected = new Map<ContestCategory, StatusCount>(
-      ContestCategories.filter(
-        (category) => category !== "ABC"
-      ).map((category) => [category, { solved: 0, rejected: 0, total: 0 }])
+      ContestCategories.filter((category) => category !== "ABC").map(
+        (category) => [category, { solved: 0, rejected: 0, total: 0 }]
+      )
     );
     expected.set("ABC", { solved: 1, rejected: 1, total: 4 });
     expect(
@@ -319,9 +319,9 @@ describe("test makeCategoryCounts", () => {
     const userSubmissions: Submission[] = [];
 
     const expected = new Map<ContestCategory, StatusCount>(
-      ContestCategories.filter(
-        (category) => category !== "ABC"
-      ).map((category) => [category, { solved: 0, rejected: 0, total: 0 }])
+      ContestCategories.filter((category) => category !== "ABC").map(
+        (category) => [category, { solved: 0, rejected: 0, total: 0 }]
+      )
     );
     expected.set("ABC", { solved: 0, rejected: 0, total: 4 });
     expect(

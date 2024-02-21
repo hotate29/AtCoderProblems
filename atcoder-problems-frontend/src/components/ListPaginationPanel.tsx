@@ -71,10 +71,12 @@ export const ListPaginationPanel: React.FC<ListPaginationPanelProps> = (
         <UncontrolledDropdown className="react-bs-table-sizePerPage-dropdown">
           <DropdownToggle caret>{props.sizePerPage}</DropdownToggle>
           <DropdownMenu>
-            {(props.sizePerPageList as Array<{
-              text: string;
-              value: number;
-            }>).map((p) => (
+            {(
+              props.sizePerPageList as Array<{
+                text: string;
+                value: number;
+              }>
+            ).map((p) => (
               <DropdownItem
                 key={p.text}
                 onClick={(): void => props.changeSizePerPage(p.value)}
