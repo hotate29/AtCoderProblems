@@ -23,7 +23,7 @@ import { hasPropertyAsType, isString } from "../utils/TypeUtils";
 
 const STATIC_API_BASE_URL = "https://kenkoooo.com/atcoder/resources";
 const PROXY_API_URL = "https://kenkoooo.com/atcoder/proxy";
-const ATCODER_API_URL = process.env.REACT_APP_ATCODER_API_URL;
+const ATCODER_API_URL = import.meta.env.VITE_ATCODER_API_URL;
 
 const generateRanking = (
   mergedProblemMap: Map<ProblemId, MergedProblem>,

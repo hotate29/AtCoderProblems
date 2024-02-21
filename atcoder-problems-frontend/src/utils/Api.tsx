@@ -2,7 +2,7 @@ import { UserId } from "../interfaces/Status";
 import Submission, { isSubmission } from "../interfaces/Submission";
 import { hasPropertyAsType, isNumber } from "./TypeUtils";
 
-const ATCODER_API_URL = process.env.REACT_APP_ATCODER_API_URL;
+const ATCODER_API_URL = import.meta.env.VITE_ATCODER_API_URL;
 
 export const fetchPartialUserSubmissions = async (
   userId: UserId,

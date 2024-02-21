@@ -34,7 +34,7 @@ export const NavigationBar = () => {
     <div className={isNavigationFixed ? "sticky-top" : ""}>
       <Navbar color="dark" dark expand="lg">
         <NavbarBrand tag={RouterLink} to="/" className="mb-0 h1">
-          AtCoder Problems
+          AtCoder Problems aaaaaaaaaaaa
         </NavbarBrand>
 
         <NavbarToggler onClick={(): void => setIsOpen(!isOpen)} />

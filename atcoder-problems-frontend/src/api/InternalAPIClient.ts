@@ -7,7 +7,7 @@ import {
 } from "../pages/Internal/types";
 import { useSWRData } from "./index";
 
-const BASE_URL = process.env.REACT_APP_INTERNAL_API_URL;
+const BASE_URL = import.meta.env.VITE_INTERNAL_API_URL;
 export const USER_GET = `${BASE_URL}/user/get`;
 
 const typeCastFetcher = <T>(url: string) =>
