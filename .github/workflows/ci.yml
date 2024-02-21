@@ -37,10 +37,10 @@ jobs:
           - 5432:5432
 
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v4.1.1
 
       - name: Cache dependencies
-        uses: Swatinem/rust-cache@v2.2.0
+        uses: Swatinem/rust-cache@v2.7.3
         with:
           workspaces: atcoder-problems-backend -> target
 
@@ -70,20 +70,32 @@ jobs:
         working-directory: ./atcoder-problems-frontend
 
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v4.1.1
 
       - name: Use Node.js
-        uses: actions/setup-node@v3.6.0
+        uses: actions/setup-node@v4.0.2
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Cache node_modules
-        uses: actions/cache@v3.2.3
+        uses: actions/cache@v4.0.1
         with:
           path: |
             ~/.cache/Cypress
             ./atcoder-problems-frontend/node_modules
           key: ${{ runner.os }}-cargo-${{ hashFiles('atcoder-problems-frontend/yarn.lock') }}
+
+      - name: Cache eslint, prettier
+        uses: actions/cache@v4.0.1
+        with:
+          # .eslintcacheはCRAから呼び出されるeslintのキャッシュ
+          path: |
+            ./atcoder-problems-frontend/node_modules/.cache
+            .eslintcache
+          key: eslint-${{github.ref_name}}-${{github.sha}}
+          restore-keys: |
+            eslint-${{github.ref_name}}-
+            eslint-
 
       - name: Install dependencies
         run: yarn
@@ -94,11 +106,11 @@ jobs:
           mdbook-version: "latest"
 
       - name: build
-        run: yarn build
+        run: export NODE_OPTIONS=--openssl-legacy-provider && yarn build
       - name: test
         run: yarn test
       - name: lint
-        run: yarn lint
+        run: yarn lint --cache-strategy content --cache-location ./node_modules/.cache/eslint/.eslint-cache
       - name: Integration test
         run: |
           yarn prepare-ci
