@@ -53,7 +53,7 @@ const RATED_FILTERS = [
   "Only Unrated",
   "Only Unrated without Difficulty",
 ] as const;
-type RatedFilter = typeof RATED_FILTERS[number];
+type RatedFilter = (typeof RATED_FILTERS)[number];
 
 interface Props {
   userId: string;

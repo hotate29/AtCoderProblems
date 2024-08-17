@@ -33,7 +33,7 @@ const RECOMMEND_NUM_OPTIONS = [
   },
 ];
 const RecommendOptions = ["Easy", "Moderate", "Difficult"] as const;
-export type RecommendOption = typeof RecommendOptions[number];
+export type RecommendOption = (typeof RecommendOptions)[number];
 const ExcludeOptions = [
   "Exclude",
   "Exclude submitted",
@@ -45,7 +45,7 @@ const ExcludeOptions = [
   "1 Week",
   "Don't exclude",
 ] as const;
-export type ExcludeOption = typeof ExcludeOptions[number];
+export type ExcludeOption = (typeof ExcludeOptions)[number];
 
 interface Props {
   recommendOption: RecommendOption;

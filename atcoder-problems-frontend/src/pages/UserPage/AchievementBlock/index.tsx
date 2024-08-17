@@ -59,9 +59,8 @@ export const AchievementBlock: React.FC<Props> = (props) => {
   const userSubmissions = useUserSubmission(props.userId) ?? [];
   const problemModels = useProblemModelMap();
   const dailyCount = countUniqueAcByDate(userSubmissions);
-  const { longestStreak, currentStreak, prevDateLabel } = calcStreak(
-    dailyCount
-  );
+  const { longestStreak, currentStreak, prevDateLabel } =
+    calcStreak(dailyCount);
   const shortRanking = useShortRanking() ?? [];
   const fastRanking = useFastRanking() ?? [];
   const firstRanking = useFirstRanking() ?? [];

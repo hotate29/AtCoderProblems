@@ -54,10 +54,8 @@ export const ContestConfig: React.FC<Props> = (props) => {
   const [penaltySecond, setPenaltySecond] = useState(
     props.initialPenaltySecond
   );
-  const [
-    expectedParticipantUserIdsText,
-    setExpectedParticipantUserIdsText,
-  ] = useState("");
+  const [expectedParticipantUserIdsText, setExpectedParticipantUserIdsText] =
+    useState("");
   const [
     expectedParticipantsInputErrorMessage,
     setExpectedParticipantsInputErrorMessage,

@@ -124,11 +124,9 @@ export const SingleProblemList = (props: Props) => {
                   item={item}
                   problem={problem}
                   saveText={async (memo: string) =>
-                    await updateProblemItem(
-                      item.problem_id,
-                      memo,
-                      listId
-                    ).then(() => problemListFetch.mutate())
+                    await updateProblemItem(item.problem_id, memo, listId).then(
+                      () => problemListFetch.mutate()
+                    )
                   }
                   deleteItem={async () =>
                     await deleteProblemItem(item.problem_id, listId).then(() =>

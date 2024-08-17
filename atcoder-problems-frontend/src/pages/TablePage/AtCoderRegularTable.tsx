@@ -70,9 +70,9 @@ const AtCoderRegularTableSFC: React.FC<Props> = (props) => {
   }
   const contests: OneContest[] = props.contests
     .map((contest) => {
-      const problems = (
-        props.contestToProblems.get(contest.id) ?? []
-      ).sort((a, b) => a.id.localeCompare(b.id));
+      const problems = (props.contestToProblems.get(contest.id) ?? []).sort(
+        (a, b) => a.id.localeCompare(b.id)
+      );
       const problemStatusList = problems.map((problem) => {
         const status = props.statusLabelMap.get(problem.id) ?? noneStatus();
         return {

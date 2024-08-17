@@ -16,7 +16,7 @@ export const ContestCategories = [
   "Other Sponsored",
   "Other Contests",
 ] as const;
-export type ContestCategory = typeof ContestCategories[number];
+export type ContestCategory = (typeof ContestCategories)[number];
 
 export const AGC_001_START = 1468670400;
 

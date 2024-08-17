@@ -19,7 +19,7 @@ const LocalStorageKeys = [
   "recoomendExcludeOption",
   "MergeLikeContest",
 ] as const;
-type LocalStorageKey = typeof LocalStorageKeys[number];
+type LocalStorageKey = (typeof LocalStorageKeys)[number];
 
 export function useLocalStorage<T>(
   key: LocalStorageKey,

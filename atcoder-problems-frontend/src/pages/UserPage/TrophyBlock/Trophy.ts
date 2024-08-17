@@ -15,7 +15,7 @@ export const TrophyGroups = [
   "Problems",
   "Streak",
 ] as const;
-export type TrophyGroup = typeof TrophyGroups[number];
+export type TrophyGroup = (typeof TrophyGroups)[number];
 
 export interface TrophySubmission {
   submission: Submission;

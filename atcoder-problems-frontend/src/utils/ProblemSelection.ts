@@ -38,9 +38,10 @@ export const useProblemIdSelection = (): [
     new Set<ProblemId>()
   );
 
-  const get = useCallback(() => Array.from(selectedProblemIdSet), [
-    selectedProblemIdSet,
-  ]);
+  const get = useCallback(
+    () => Array.from(selectedProblemIdSet),
+    [selectedProblemIdSet]
+  );
 
   const select = useCallback(
     (problemIds: ProblemId[]) => dispatch({ type: "ADD", ids: problemIds }),
