@@ -1,4 +1,4 @@
-import random from "random";
+import random, { RNGFactory } from "random";
 import seedrandom from "seedrandom";
 import {
   ProblemModelWithDifficultyModel,
@@ -54,7 +54,9 @@ export const makeBotRunners = (
   start: number,
   end: number
 ) => {
-  random.use(seedrandom("atcoder-problems"));
+  const rng = RNGFactory(seedrandom("atcoder-problems"));
+  random.use(rng);
+
   problemModelAndPoints.sort(
     (a, b) => a.problemModel.difficulty - b.problemModel.difficulty
   );

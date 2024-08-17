@@ -10,28 +10,27 @@ interface Props {
   title?: string;
 }
 
-export enum RatedTargetType {
-  All,
-  Unrated,
-}
+export const AllRated = Symbol();
+export const Unrated = Symbol();
+type RatedTargetType = typeof AllRated | typeof Unrated;
 
-type RatedTarget = number | RatedTargetType;
+export type RatedTarget = number | RatedTargetType;
 
 export function getRatedTarget(contest: Contest): RatedTarget {
   if (AGC_001_START > contest.start_epoch_second) {
-    return RatedTargetType.Unrated;
+    return Unrated;
   }
   switch (contest.rate_change) {
     case undefined:
-      return RatedTargetType.Unrated;
+      return Unrated;
     case "-":
-      return RatedTargetType.Unrated;
+      return Unrated;
     case "All":
-      return RatedTargetType.All;
+      return AllRated;
     default: {
       const range = contest.rate_change.split("~").map((r) => r.trim());
       if (range.length !== 2) {
-        return RatedTargetType.Unrated;
+        return Unrated;
       }
       const upperBound = parseInt(range[1]);
       if (upperBound) {
@@ -39,20 +38,21 @@ export function getRatedTarget(contest: Contest): RatedTarget {
       }
       const lowerBound = parseInt(range[0]);
       if (lowerBound) {
-        return RatedTargetType.All;
+        return AllRated;
       }
-      return RatedTargetType.Unrated;
+      return Unrated;
     }
   }
 }
 
 function getColorClass(target: RatedTarget): string {
-  if (target === RatedTargetType.All) {
+  if (target === AllRated) {
     return "difficulty-red";
   }
-  if (target === RatedTargetType.Unrated) {
+  if (target === Unrated) {
     return "";
   }
+
   return getRatingColorClass(target);
 }
 

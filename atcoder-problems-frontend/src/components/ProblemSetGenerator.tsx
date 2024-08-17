@@ -52,6 +52,15 @@ interface ProblemSetSelectionPreset {
   problemSelectionParams: ProblemSelectionParams[];
 }
 
+type contestTypeOption = {
+  ABC: boolean;
+  ARC: boolean;
+  AGC: boolean;
+  ABC_Like: boolean;
+  ARC_Like: boolean;
+  AGC_Like: boolean;
+};
+
 const ABC_PRESET: ProblemSetSelectionPreset = {
   displayName: "Level 1",
   problemSelectionParams: [
@@ -94,14 +103,16 @@ export const ProblemSetGenerator: React.FC<Props> = (props) => {
   );
   const [excludeExperimental, setExcludeExperimental] = useState(false);
   const [excludeOption, setExcludeOption] = useState<ExcludeOption>("Exclude");
-  const [contestTypeOption, setContestTypeOption] = useState({
-    ABC: true,
-    ARC: true,
-    AGC: true,
-    ABC_Like: true,
-    ARC_Like: true,
-    AGC_Like: true,
-  });
+  const [contestTypeOption, setContestTypeOption] = useState<contestTypeOption>(
+    {
+      ABC: true,
+      ARC: true,
+      AGC: true,
+      ABC_Like: true,
+      ARC_Like: true,
+      AGC_Like: true,
+    }
+  );
   const [selectedPreset, setSelectedPreset] = useState(ABC_PRESET);
   const problems = useProblems() ?? [];
   const problemModels = useProblemModelMap();
@@ -109,7 +120,7 @@ export const ProblemSetGenerator: React.FC<Props> = (props) => {
     useMultipleUserSubmissions(props.expectedParticipantUserIds).data ?? [];
   const alreadySolvedProblemIds = new Set(submissions.map((s) => s.problem_id));
   const lastSolvedTimeMap = getLastSolvedTimeMap(submissions);
-  const { data: contests } = useContests();
+  const contests = useContests().data ?? [];
 
   const contestTypeKeyToDisplayName = (key: string) => {
     if (key.includes("Like")) {
@@ -168,11 +179,13 @@ export const ProblemSetGenerator: React.FC<Props> = (props) => {
           <Label>Include / Exclude Contest Types</Label>
           <InputGroup>
             <ButtonGroup>
-              {Object.keys(contestTypeOption).map((contestType) => {
+              {(Object.keys(
+                contestTypeOption
+              ) as (keyof contestTypeOption)[]).map((contestType) => {
                 return (
                   <Button
                     key={contestType}
-                    active={contestTypeOption[contestType] as boolean}
+                    active={contestTypeOption[contestType]}
                     onClick={(): void => {
                       setContestTypeOption({
                         ...contestTypeOption,
@@ -325,7 +338,9 @@ export const ProblemSetGenerator: React.FC<Props> = (props) => {
               }
 
               let candidateContests: Contest[] = [];
-              Object.keys(contestTypeOption).forEach((contestType) => {
+              (Object.keys(
+                contestTypeOption
+              ) as (keyof contestTypeOption)[]).forEach((contestType) => {
                 if (contestTypeOption[contestType]) {
                   const filteredContests = contests.filter((contest) => {
                     return (

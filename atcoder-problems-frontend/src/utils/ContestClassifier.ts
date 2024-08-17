@@ -1,5 +1,5 @@
 import Contest from "../interfaces/Contest";
-import { RatedTargetType, getRatedTarget } from "../components/ContestLink";
+import { AllRated, Unrated, getRatedTarget } from "../components/ContestLink";
 
 export const ContestCategories = [
   "ABC",
@@ -31,20 +31,20 @@ export const isRatedContest = (
   );
 };
 
-const classifyOtherRatedContest = (contest: Contest): ContestCategory => {
-  const rated = getRatedTarget(contest);
-  if (rated === RatedTargetType.All) {
+// うーん
+const classifyOtherRatedContest = (
+  rated: number | typeof AllRated
+): ContestCategory => {
+  if (rated === AllRated) {
     return "AGC-Like";
-  }
-  if (rated < 2000) {
+  } else if (rated < 2000) {
     return "ABC-Like";
-  }
-
-  return "ARC-Like";
+  } else return "ARC-Like";
 };
 
 export const classifyContest = (
   contest: Contest,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   problemCount = 100 // TODO: This function can not classify a non-AHC heuristic contest with this default parameter.
 ): ContestCategory => {
   if (/^abc\d{3}$/.exec(contest.id)) {
@@ -63,8 +63,9 @@ export const classifyContest = (
     return "AHC";
   }
 
-  if (isRatedContest(contest, problemCount)) {
-    return classifyOtherRatedContest(contest);
+  const rated = getRatedTarget(contest);
+  if (rated !== Unrated) {
+    return classifyOtherRatedContest(rated);
   }
 
   if (contest.id.startsWith("past")) {

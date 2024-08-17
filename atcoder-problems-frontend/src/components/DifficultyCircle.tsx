@@ -5,7 +5,6 @@ import ProblemModel, {
   isProblemModelWithDifficultyModel,
   isProblemModelWithTimeModel,
   ProblemModelWithDifficultyModel,
-  ProblemModelWithTimeModel,
 } from "../interfaces/ProblemModel";
 import {
   predictSolveProbability,
@@ -86,10 +85,7 @@ export const DifficultyCircle: React.FC<Props> = (props) => {
       : isProblemModelWithTimeModel(problemModel) === false
       ? "-"
       : formatPredictedSolveTime(
-          predictSolveTime(
-            problemModel as ProblemModelWithTimeModel,
-            userRatingInfo.internalRating
-          )
+          predictSolveTime(problemModel, userRatingInfo.internalRating)
         );
   const contentDifficulty = `Difficulty: ${difficulty}`;
   const contentProbability = `Solve Prob: ${predictProbability}`;

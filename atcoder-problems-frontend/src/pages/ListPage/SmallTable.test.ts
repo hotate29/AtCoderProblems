@@ -16,7 +16,8 @@ const DEFAULT_SUBMISSION = {
 const DEFAULT_MERGED_PROBLEMS: MergedProblem = {
   id: "",
   contest_id: "",
-  title: "",
+  problem_index: "",
+  name: "",
   first_user_id: null,
   first_contest_id: null,
   first_submission_id: null,
